@@ -42,13 +42,26 @@ public class PageReplacementSim {
 				pages.add(page);
 			}
 			
+			br.close();
 			for(int i = 0; i < pages.size(); i++){
-				System.out.println(pages.get(i));
+				process(pages.get(i));
 			}
 		} catch(IOException e){
 			System.out.println("Error parsing input file");
 			e.printStackTrace();
 			System.exit(1);
 		}
+	}
+	
+	private void process(Page p){
+		boolean fault = false;
+		System.out.println(p.toString());
+		
+		if(fault)
+			pageFault();
+	}
+	
+	private void pageFault(){
+		
 	}
 }
