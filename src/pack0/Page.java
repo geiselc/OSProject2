@@ -3,15 +3,12 @@ package pack0;
 public class Page {
 
 	protected String pid;
-	protected String location;
+	protected String pageNumber;
 	
-	public Page() {
-		
-	}
+	public Page() {}
 	
 	public Page(String p, String l){
 		this.pid = p;
-		this.location = l;
 	}
 	
 	public String toString(){
@@ -27,10 +24,10 @@ public class Page {
 	}
 
 	public String getLocation() {
-		return location;
+		return pageNumber;
 	}
 
 	public void setLocation(String location) {
-		this.location = location;
+		this.pageNumber = location;
 	}
 }

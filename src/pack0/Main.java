@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class Main {
@@ -15,7 +16,13 @@ public class Main {
 	 * - 
 	 */
 	
+	/** Constants **/
+	private final int LOGICAL = 64; 	// KB - 6 pages
+	private final int PHYSICAL = 16; 	// KB - 4 frames
+	private final int PAGE_FRAME = 1;	// KB 
+	
 	private ArrayList<Page> pages;
+	private HashMap<Integer, PageTableEntry> pageTable;
 	
 	public static void main(String[] args) {
 		new Main(args[0]);
@@ -44,5 +51,4 @@ public class Main {
 			System.exit(1);
 		}
 	}
-
 }
