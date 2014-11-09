@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.math.*;
 
 
 public class PageReplacementSim {
@@ -23,6 +24,8 @@ public class PageReplacementSim {
 	
 	private ArrayList<Page> pages;
 	private HashMap<Integer, PageTableEntry> pageTable;
+	private boolean[] isPageFree;
+	private boolean[] isFrameFree;
 	
 	public static void main(String[] args) {
 		new PageReplacementSim(args[0]);
@@ -30,6 +33,11 @@ public class PageReplacementSim {
 	
 	public PageReplacementSim(String file){
 		this.pages = new ArrayList<Page>();
+		this.pageTable = new HashMap<Integer, PageTableEntry>();
+		
+		// TODO Fill these with boolean vals if these are needed
+		this.isPageFree = new boolean[(int)(Math.log(LOGICAL)/Math.log(2))];
+		this.isFrameFree = new boolean[(int)(Math.log(PHYSICAL)/Math.log(2))];
 		
 		try{
 			String line;
@@ -62,6 +70,13 @@ public class PageReplacementSim {
 	}
 	
 	private void pageFault(){
+		boolean isFreeFrame = true;
+		
+		if(!isFreeFrame)
+			pageReplacement();
+	}
+	
+	private void pageReplacement(){
 		
 	}
 }
