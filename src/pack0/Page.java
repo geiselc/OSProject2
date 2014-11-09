@@ -9,10 +9,11 @@ public class Page {
 	
 	public Page(String p, String l){
 		this.pid = p;
+		this.pageNumber = l;
 	}
 	
 	public String toString(){
-		return getPid()+":\t"+getLocation();
+		return getPid()+":\t"+getPageNumber();
 	}
 
 	public String getPid() {
@@ -23,11 +24,11 @@ public class Page {
 		this.pid = pid;
 	}
 
-	public String getLocation() {
+	public String getPageNumber() {
 		return pageNumber;
 	}
 
-	public void setLocation(String location) {
-		this.pageNumber = location;
+	public void setPageNumber(String pageNumber) {
+		this.pageNumber = pageNumber;
 	}
 }
