@@ -6,18 +6,16 @@ public class PageTable {
 	protected int frameNum;
 	protected boolean isValid;
 	protected boolean isResident;
-	protected int secondaryAddress;
 	
 	private final int numPages = 64;
 
 	public PageTable() {}
 	
-	public PageTable(int pageNumber, int frameNumber, boolean validBit, boolean residentBit, int diskAddress){
+	public PageTable(int pageNumber, int frameNumber, boolean validBit, boolean residentBit){
 		this.pageNum = pageNumber;
 		this.frameNum = frameNumber;
 		this.isValid = validBit;
 		this.isResident = residentBit;
-		this.secondaryAddress = diskAddress;
 	}
 
 	public int getPageNum() {
@@ -51,13 +49,4 @@ public class PageTable {
 	public void setResident(boolean isResident) {
 		this.isResident = isResident;
 	}
-
-	public int getSecondaryAddress() {
-		return secondaryAddress;
-	}
-
-	public void setSecondaryAddress(int secondaryAddress) {
-		this.secondaryAddress = secondaryAddress;
-	}
-
 }

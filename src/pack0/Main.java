@@ -16,13 +16,15 @@ public class Main {
 	private final int PAGE_FRAME = 1;	// KB. 
 	
 	/** Structures **/
-	private ArrayList<Process> inFile;
-	private String[] processList;
+	private ArrayList<Page> inFile;
+	private ArrayList<String> processList;
 	private String[] frames;
+	private String[] logical;
 	private HashMap<Integer, PageTable> pageTable;
 	
 	/** Variables **/
 	private int faultCount = 0;
+	private int refCount = 0;
 	private boolean isFreeFrame = true;
 	
 	public static void main(String[] args) {
@@ -30,23 +32,27 @@ public class Main {
 	}
 	
 	public Main(String file){
-		this.inFile = new ArrayList<Process>();
+		this.inFile = new ArrayList<Page>();
+		this.processList = new ArrayList<String>();
 		this.pageTable = new HashMap<Integer, PageTable>();
 		this.frames = new String[PHYSICAL];
+		
 		try{
 			String line;
 			String[] parts;
-			Process process;
+			Page page;
 			BufferedReader br = new BufferedReader(new FileReader(file));
 			while((line = br.readLine()) != null){
 				parts = line.split(":\t");
-				process = new Process(parts[0], parts[1]);
-				inFile.add(process);
+				page = new Page(parts[0], parts[1]);
+				inFile.add(page);
 			}
 			
 			br.close();
 			for(int i = 0; i < inFile.size(); i++){
 				processLine(inFile.get(i));
+				
+				refCount++;
 			}
 		} catch(IOException e){
 			System.out.println("Error parsing input file");
@@ -55,17 +61,26 @@ public class Main {
 		}
 	}
 	
-	private void processLine(Process p){
+	private void processLine(Page p){
 		boolean fault = true;
 		System.out.println(p.toString());
 		
+		if(processList.contains(p.getPid())){
+			fault = false;
+			
+		} else {
+			processList.add(p.getPid());
+			
+			//get page, add to log m, then add to page table, then add to frame. 
+		}
+	
 		if(fault)
 			pageFault();
 	}
 	
 	private void pageFault(){
 		faultCount++;
-		
+
 		if(!isFreeFrame)
 			pageReplacement();
 	}
