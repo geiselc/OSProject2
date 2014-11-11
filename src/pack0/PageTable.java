@@ -6,8 +6,6 @@ public class PageTable {
 	protected int frameNum;
 	protected boolean isValid;
 	protected boolean isResident;
-	
-	private final int numPages = 64;
 
 	public PageTable() {}
 	

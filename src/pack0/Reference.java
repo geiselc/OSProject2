@@ -31,4 +31,12 @@ public class Reference {
 	public void setPageNumber(String pageNumber) {
 		this.pageNumber = pageNumber;
 	}
+	
+	public int getPidFromString(String s){
+		return Integer.parseInt(s.substring(1,2));
+	}
+	
+	public int binToInt(String s){
+		return Integer.parseInt(s, 2);
+	}
 }

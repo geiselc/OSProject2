@@ -20,7 +20,13 @@ public class Main {
 	private ArrayList<String> processList;
 	private String[] frames;
 	private String[] logical;
-	private HashMap<Integer, PageTable> pageTable;
+	
+	/** Page Tables **/
+	private PageTable TableOne;
+	private PageTable TableTwo;
+	private PageTable TableThree;
+	private PageTable TableFour;
+	private PageTable TableFive;
 	
 	/** Variables **/
 	private int faultCount = 0;
@@ -34,7 +40,6 @@ public class Main {
 	public Main(String file){
 		this.inFile = new ArrayList<Reference>();
 		this.processList = new ArrayList<String>();
-		this.pageTable = new HashMap<Integer, PageTable>();
 		this.frames = new String[PHYSICAL];
 		
 		try{
@@ -68,8 +73,34 @@ public class Main {
 		if(processList.contains(r.getPid())){
 			fault = false;
 			
-		} else {
+		} else {	// process does not exist yet
 			processList.add(r.getPid());
+			
+			switch(r.getPid()){
+				case "P1":
+					Process P1 = new Process(r.getPidFromString(r.getPid()));
+					TableOne = new PageTable();
+					break;
+				case "P2":
+					Process P2 = new Process(r.getPidFromString(r.getPid()));
+					TableTwo = new PageTable();
+					break;
+				case "P3":
+					Process P3 = new Process(r.getPidFromString(r.getPid()));
+					TableThree = new PageTable();
+					break;
+				case "P4":
+					Process P4 = new Process(r.getPidFromString(r.getPid()));
+					TableFour = new PageTable();
+					break;
+				case "P5":
+					Process P5 = new Process(r.getPidFromString(r.getPid()));
+					TableTwo = new PageTable();
+					break;
+				default:
+					System.out.println("Error processing reference: " +r.toString());
+					System.exit(0);
+			}
 			
 			//get page, add to log m, then add to page table, then add to frame. 
 		}
