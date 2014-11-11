@@ -22,11 +22,11 @@ public class Main {
 	private String[] logical;
 	
 	/** Page Tables **/
-	private PageTable TableOne;
-	private PageTable TableTwo;
-	private PageTable TableThree;
-	private PageTable TableFour;
-	private PageTable TableFive;
+	private ArrayList<PageTableEntry> TableOne;
+	private ArrayList<PageTableEntry> TableTwo;
+	private ArrayList<PageTableEntry> TableThree;
+	private ArrayList<PageTableEntry> TableFour;
+	private ArrayList<PageTableEntry> TableFive;
 	
 	/** Variables **/
 	private int faultCount = 0;
@@ -79,23 +79,23 @@ public class Main {
 			switch(r.getPid()){
 				case "P1":
 					Process P1 = new Process(r.getPidFromString(r.getPid()));
-					TableOne = new PageTable();
+					TableOne = new ArrayList<PageTableEntry>();
 					break;
 				case "P2":
 					Process P2 = new Process(r.getPidFromString(r.getPid()));
-					TableTwo = new PageTable();
+					TableTwo = new ArrayList<PageTableEntry>();
 					break;
 				case "P3":
 					Process P3 = new Process(r.getPidFromString(r.getPid()));
-					TableThree = new PageTable();
+					TableThree = new ArrayList<PageTableEntry>();
 					break;
 				case "P4":
 					Process P4 = new Process(r.getPidFromString(r.getPid()));
-					TableFour = new PageTable();
+					TableFour = new ArrayList<PageTableEntry>();
 					break;
 				case "P5":
 					Process P5 = new Process(r.getPidFromString(r.getPid()));
-					TableTwo = new PageTable();
+					TableTwo = new ArrayList<PageTableEntry>();
 					break;
 				default:
 					System.out.println("Error processing reference: " +r.toString());

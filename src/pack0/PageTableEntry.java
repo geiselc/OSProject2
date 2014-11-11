@@ -1,15 +1,15 @@
 package pack0;
 
-public class PageTable {
+public class PageTableEntry {
 	
 	protected int pageNum;
 	protected int frameNum;
 	protected boolean isValid;
 	protected boolean isResident;
 
-	public PageTable() {}
+	public PageTableEntry() {}
 	
-	public PageTable(int pageNumber, int frameNumber, boolean validBit, boolean residentBit){
+	public PageTableEntry(int pageNumber, int frameNumber, boolean validBit, boolean residentBit){
 		this.pageNum = pageNumber;
 		this.frameNum = frameNumber;
 		this.isValid = validBit;
