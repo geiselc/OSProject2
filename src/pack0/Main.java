@@ -16,7 +16,7 @@ public class Main {
 	private final int PAGE_FRAME = 1;	// KB. 
 	
 	/** Structures **/
-	private ArrayList<Page> inFile;
+	private ArrayList<Reference> inFile;
 	private ArrayList<String> processList;
 	private String[] frames;
 	private String[] logical;
@@ -32,7 +32,7 @@ public class Main {
 	}
 	
 	public Main(String file){
-		this.inFile = new ArrayList<Page>();
+		this.inFile = new ArrayList<Reference>();
 		this.processList = new ArrayList<String>();
 		this.pageTable = new HashMap<Integer, PageTable>();
 		this.frames = new String[PHYSICAL];
@@ -40,12 +40,12 @@ public class Main {
 		try{
 			String line;
 			String[] parts;
-			Page page;
+			Reference ref;
 			BufferedReader br = new BufferedReader(new FileReader(file));
 			while((line = br.readLine()) != null){
 				parts = line.split(":\t");
-				page = new Page(parts[0], parts[1]);
-				inFile.add(page);
+				ref = new Reference(parts[0], parts[1]);
+				inFile.add(ref);
 			}
 			
 			br.close();
@@ -61,15 +61,15 @@ public class Main {
 		}
 	}
 	
-	private void processLine(Page p){
+	private void processLine(Reference r){
 		boolean fault = true;
-		System.out.println(p.toString());
+		System.out.println(r.toString());
 		
-		if(processList.contains(p.getPid())){
+		if(processList.contains(r.getPid())){
 			fault = false;
 			
 		} else {
-			processList.add(p.getPid());
+			processList.add(r.getPid());
 			
 			//get page, add to log m, then add to page table, then add to frame. 
 		}

@@ -1,13 +1,13 @@
 package pack0;
 
-public class Page {
+public class Reference {
 
 	protected String pid;
 	protected String pageNumber;
 	
-	public Page() {}
+	public Reference() {}
 	
-	public Page(String p, String l){
+	public Reference(String p, String l){
 		this.pid = p;
 		this.pageNumber = l;
 	}
