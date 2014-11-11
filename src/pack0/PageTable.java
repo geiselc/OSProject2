@@ -1,16 +1,18 @@
 package pack0;
 
-public class PageTableEntry {
+public class PageTable {
 	
 	protected int pageNum;
 	protected int frameNum;
 	protected boolean isValid;
 	protected boolean isResident;
 	protected int secondaryAddress;
-
-	public PageTableEntry() {}
 	
-	public PageTableEntry(int pageNumber, int frameNumber, boolean validBit, boolean residentBit, int diskAddress){
+	private final int numPages = 64;
+
+	public PageTable() {}
+	
+	public PageTable(int pageNumber, int frameNumber, boolean validBit, boolean residentBit, int diskAddress){
 		this.pageNum = pageNumber;
 		this.frameNum = frameNumber;
 		this.isValid = validBit;
