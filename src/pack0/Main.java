@@ -104,20 +104,7 @@ public class Main {
 					P1.setCurrRef(r);
 					pt = processEntry(P1);
 					if(TableOne.containsKey(r.binToInt(r.getPageNumber()))){
-						boolean inFrame = false;
-						System.out.println("Duplicate");
-						for(int i = 0; i < frames.length; i++){
-							if(frames[i] != null && frames[i].equals(P1.getCurrRef().toString())){
-								inFrame = true;
-								break;
-							} 	
-						}
-						
-						if(!inFrame){
-							pageReplacement();
-							pt.setFrameNum(getFreeFrameIndex());
-							frames[pt.getFrameNum()] = P1.toString();
-						}
+						System.out.println("Already in Mem");
 					} else
 						TableOne.put(r.binToInt(r.getPageNumber()), processEntry(P1));
 						//System.out.println(P1.getPid() + "\t" +TableOne.toString());
@@ -138,21 +125,7 @@ public class Main {
 					P2.setCurrRef(r);
 					pt = processEntry(P2);
 					if(TableTwo.containsKey(r.binToInt(r.getPageNumber()))) {
-						boolean inFrame = false;
-						System.out.println("Duplicate");
-						for(int i = 0; i < frames.length; i++){
-							if(frames[i] != null && frames[i].equals(P2.getCurrRef().toString())){
-								inFrame = true;
-								break;
-							} 	
-						}
-						
-						if(!inFrame){
-							faultCount++;
-							pageReplacement();
-							pt.setFrameNum(getFreeFrameIndex());
-							frames[pt.getFrameNum()] = P2.toString();
-						}
+						System.out.println("Already in Mem");
 					} else
 						TableTwo.put(r.binToInt(r.getPageNumber()), processEntry(P2));
 				} else {
@@ -172,21 +145,7 @@ public class Main {
 					P3.setCurrRef(r);
 					pt = processEntry(P3);
 					if(TableThree.containsKey(r.binToInt(r.getPageNumber()))) {
-						boolean inFrame = false;
-						System.out.println("Duplicate");
-						for(int i = 0; i < frames.length; i++){
-							if(frames[i] != null && frames[i].equals(P3.getCurrRef().toString())){
-								inFrame = true;
-								break;
-							} 	
-						}
-						
-						if(!inFrame){
-							faultCount++;
-							pageReplacement();
-							pt.setFrameNum(getFreeFrameIndex());
-							frames[pt.getFrameNum()] = P3.toString();
-						}
+						System.out.println("Already in Mem");
 					} else
 						TableThree.put(r.binToInt(r.getPageNumber()), processEntry(P3));
 				} else {
@@ -206,21 +165,7 @@ public class Main {
 					P4.setCurrRef(r);
 					pt = processEntry(P4);
 					if(TableFour.containsKey(r.binToInt(r.getPageNumber()))) {
-						boolean inFrame = false;
-						System.out.println("Duplicate");
-						for(int i = 0; i < frames.length; i++){
-							if(frames[i] != null && frames[i].equals(P4.getCurrRef().toString())){
-								inFrame = true;
-								break;
-							} 	
-						}
-						
-						if(!inFrame){
-							faultCount++;
-							pageReplacement();
-							pt.setFrameNum(getFreeFrameIndex());
-							frames[pt.getFrameNum()] = P4.toString();
-						}
+						System.out.println("Already in Mem");
 					} else
 						TableFour.put(r.binToInt(r.getPageNumber()), processEntry(P4));
 				} else {
@@ -240,21 +185,7 @@ public class Main {
 					P5.setCurrRef(r);
 					pt = processEntry(P5);
 					if(TableFive.containsKey(r.binToInt(r.getPageNumber()))) {
-						boolean inFrame = false;
-						System.out.println("Duplicate");
-						for(int i = 0; i < frames.length; i++){
-							if(frames[i] != null && frames[i].equals(P5.getCurrRef().toString())){
-								inFrame = true;
-								break;
-							} 	
-						}
-						
-						if(!inFrame){
-							faultCount++;
-							pageReplacement();
-							pt.setFrameNum(getFreeFrameIndex());
-							frames[pt.getFrameNum()] = P5.toString();
-						}
+						System.out.println("Already in Mem");
 					} else
 						TableFive.put(r.binToInt(r.getPageNumber()), processEntry(P5));
 				} else {
