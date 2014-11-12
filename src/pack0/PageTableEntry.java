@@ -3,7 +3,7 @@ package pack0;
 public class PageTableEntry {
 	
 	protected int pageNum;
-	protected int frameNum;
+	public int frameNum;
 	protected boolean isValid;
 	protected boolean isResident;
 

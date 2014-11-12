@@ -75,6 +75,10 @@ public class Main {
 			e.printStackTrace();
 			System.exit(1);
 		}
+		
+		System.out.println(faultCount);
+		for(int i = 0; i < frames.length; i++)
+			System.out.println(frames[i]);
 	}
 	
 	private void processReference(Reference r){
@@ -196,11 +200,20 @@ public class Main {
 		PageTableEntry pte = new PageTableEntry();
 		String temp = p.getCurrRef().getPageNumber();
 		pte.setPageNum(Integer.parseInt(temp, 2));
-		isFreeFrame = checkFrameTable();
-		if(isFreeFrame){
-			//if frame available add to frame
-		} else {
-			// frame is not available, call page replacement 
+		System.out.println(pte.getFrameNum());
+		if(!isFrameSet(p)){
+			isFreeFrame = checkFrameTable();
+			if(isFreeFrame){
+				//if frame available add to frame
+				pte.setFrameNum(getFreeFrameIndex());
+				frames[pte.getFrameNum()] = p.toString();
+				System.out.println(pte.getFrameNum());
+			} else {
+				isFault = true;
+				faultCount++;
+				System.out.println("No free frame found");
+				// frame is not available, page fault, then call page replacement 
+			}
 		}
 		pte.setValid(true);
 		pte.setResident(true);
@@ -208,20 +221,44 @@ public class Main {
 		return pte;
 	}
 	
-	private void pageFault(Process p){
-		faultCount++;
-
-		checkFrameTable();
-		
-		if(!isFreeFrame)
-			pageReplacement();
-		//else
-			//addEntry(p);
+	private boolean isFrameSet(Process p){
+		boolean result = false;
+		for(int i = 0; i < frames.length; i++){
+			if(frames[i] != null && frames[i].equals(p.getCurrRef().toString())){
+				result = true;
+				break;
+			}
+		}
+		return result;
 	}
 	
 	private boolean checkFrameTable(){
+		boolean result = false;
+		for(int i = 0; i < frames.length; i++){
+			if(frames[i] == null){
+				result = true;
+				break;
+			}
+		}
+		return result;
+	}
+	
+	private int getFreeFrameIndex(){
+		int result = 0;
+		boolean found = false;
+		for(int i = 0; i < frames.length; i++){
+			if(frames[i] == null){
+				result = i;
+				found = true;
+				break;
+			}
+		}
 		
-		return false;
+		if(!found){
+			System.out.println("No free frame");
+		}
+		
+		return result;
 	}
 	
 	private void pageReplacement(){

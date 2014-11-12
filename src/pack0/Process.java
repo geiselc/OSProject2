@@ -15,6 +15,10 @@ public class Process {
 		this.pid = pid;
 	}
 	
+	public String toString(){
+		return getCurrRef().toString();
+	}
+	
 	public int getPid() {
 		return pid;
 	}
