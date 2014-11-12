@@ -15,6 +15,10 @@ public class PageTableEntry {
 		this.isValid = validBit;
 		this.isResident = residentBit;
 	}
+	
+	public String toString(){
+		return this.pageNum + " " + this.frameNum + " " + this.isValid + " " + this.isResident;
+	}
 
 	public int getPageNum() {
 		return pageNum;
