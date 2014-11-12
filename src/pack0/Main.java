@@ -148,6 +148,7 @@ public class Main {
 						}
 						
 						if(!inFrame){
+							faultCount++;
 							pageReplacement();
 							pt.setFrameNum(getFreeFrameIndex());
 							frames[pt.getFrameNum()] = P2.toString();
@@ -181,6 +182,7 @@ public class Main {
 						}
 						
 						if(!inFrame){
+							faultCount++;
 							pageReplacement();
 							pt.setFrameNum(getFreeFrameIndex());
 							frames[pt.getFrameNum()] = P3.toString();
@@ -214,6 +216,7 @@ public class Main {
 						}
 						
 						if(!inFrame){
+							faultCount++;
 							pageReplacement();
 							pt.setFrameNum(getFreeFrameIndex());
 							frames[pt.getFrameNum()] = P4.toString();
@@ -247,6 +250,7 @@ public class Main {
 						}
 						
 						if(!inFrame){
+							faultCount++;
 							pageReplacement();
 							pt.setFrameNum(getFreeFrameIndex());
 							frames[pt.getFrameNum()] = P5.toString();
