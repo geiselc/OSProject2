@@ -1,12 +1,13 @@
 package pack0;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Process {
 
 	protected int pid;
 	protected Reference currRef;
-	protected ArrayList<PageTableEntry> pt;
+	protected HashMap<Integer, PageTableEntry> pt;
 
 	public Process() {}
 	
@@ -30,11 +31,11 @@ public class Process {
 		this.currRef = r;
 	}
 	
-	public ArrayList<PageTableEntry> getPageTable(){
+	public HashMap<Integer, PageTableEntry> getPageTable(){
 		return pt;
 	}
 	
-	public void setPageTable(ArrayList<PageTableEntry> pt){
+	public void setPageTable(HashMap<Integer, PageTableEntry> pt){
 		this.pt = pt;
 	}
 }
