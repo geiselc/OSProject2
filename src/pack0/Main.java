@@ -19,6 +19,7 @@ public class Main {
 	private ArrayList<Reference> inFile;
 	private ArrayList<String> processList;
 	private ArrayList<String> history;
+	private ArrayList<Integer> freeFrames;
 	private String[] frames;
 	
 	/** Page Tables **/
@@ -52,6 +53,10 @@ public class Main {
 		this.processList = new ArrayList<String>();
 		this.frames = new String[PHYSICAL];
 		this.history = new ArrayList<String>();
+		this.freeFrames = new ArrayList<Integer>();
+		
+		for(int i = 0; i < (PHYSICAL); i++)
+			freeFrames.add(i);
 		
 		try{
 			String line;
@@ -67,20 +72,28 @@ public class Main {
 					System.exit(1);
 				}
 				
-				if(history.contains(ref.toString())){
-					history.remove(ref.toString());
-					history.add(ref.toString());
-				} else {
-					history.add(ref.toString());
-				}
-
+//				if(history.contains(ref.toString())){
+//					history.remove(ref.toString());
+//					history.add(ref.toString());
+//				} else {
+//					history.add(ref.toString());
+//				}
+//				trimHistory(history);
 				inFile.add(ref);
 			}
 			
 			br.close();
 			for(int i = 0; i < inFile.size(); i++){
+				if(history.contains(inFile.get(i).toString())){
+					history.remove(inFile.get(i).toString());
+					history.add(inFile.get(i).toString());
+				} else {
+					history.add(inFile.get(i).toString());
+				}
+				
 				processReference(inFile.get(i));
 				refCount++;
+				trimHistory(history);
 			}
 		} catch(IOException e){
 			System.out.println("Error parsing input file");
@@ -92,7 +105,7 @@ public class Main {
 		for(int i = 0; i < frames.length; i++)
 			System.out.println(frames[i]);
 	}
-	
+
 	private void processReference(Reference r){
 		isFault = false;
 		pt = new PageTableEntry();
@@ -213,19 +226,24 @@ public class Main {
 		String temp = p.getCurrRef().getPageNumber();
 		pte.setPageNum(Integer.parseInt(temp, 2));
 		if(!isFrameSet(p)){
-			isFreeFrame = checkFrameTable();
-			if(isFreeFrame){
+			//isFreeFrame = checkFrameTable();
+			if(!freeFrames.isEmpty()){
 				//if frame available add to frame
-				pte.setFrameNum(getFreeFrameIndex());
-				frames[pte.getFrameNum()] = p.toString();
+				int f = freeFrames.get(0);
+				pte.setFrameNum(f);
+				frames[f] = p.toString();
+				freeFrames.remove(0);
 				//System.out.println(pte.getFrameNum());
 			} else {
 				isFault = true;
 				faultCount++;
 				System.out.println("No free frame found");
 				pageReplacement();
-				pte.setFrameNum(getFreeFrameIndex());
-				frames[pte.getFrameNum()] = p.toString();
+				System.out.println(freeFrames);
+				int f = freeFrames.get(0);
+				pte.setFrameNum(f);
+				frames[f] = p.toString();
+				freeFrames.remove(0);
 			}
 		}
 		pte.setValid(true);
@@ -245,45 +263,69 @@ public class Main {
 		return result;
 	}
 	
-	private boolean checkFrameTable(){
-		boolean result = false;
-		for(int i = 0; i < frames.length; i++){
-			if(frames[i] == null){
-				result = true;
-				break;
-			}
-		}
-		return result;
-	}
+//	private boolean checkFrameTable(){
+//		boolean result = false;
+//		for(int i = 0; i < frames.length; i++){
+//			if(frames[i] == null){
+//				result = true;
+//				break;
+//			}
+//		}
+//		return result;
+//	}
 	
-	private int getFreeFrameIndex(){
-		int result = 0;
-		boolean found = false;
-		for(int i = 0; i < frames.length; i++){
-			if(frames[i] == null){
-				result = i;
-				found = true;
-				break;
-			}
-		}
-		
-		if(!found){
-			System.out.println("No free frame");
-		}
-		
-		return result;
-	}
+//	private int getFreeFrameIndex(){
+//		int result = 0;
+//		boolean found = false;
+//		for(int i = 0; i < frames.length; i++){
+//			if(frames[i] == null){
+//				result = i;
+//				found = true;
+//				break;
+//			}
+//		}
+//		
+//		if(!found){
+//			System.out.println("No free frame");
+//		}
+//		
+//		return result;
+//	}
 	
 	private void pageReplacement(){
+		System.out.println(history);
 		victim = history.get(0);
 		System.out.println("VICTIM: "+victim);
 		for(int i = 0; i < frames.length; i++){
+			System.out.println(frames[i]);
 			if(frames[i] != null && frames[i].equals(victim)){
+				//System.out.println(frames[i]);
 				frames[i] = null;
+				freeFrames.add(i);
+				//System.out.println("Added Frame: "+freeFrames.get(0));
 				break;
-			}
+			} //else 
+				//System.out.println("DERP!");
 		}
 		
 		history.remove(0);
+	}
+	
+	private void trimHistory(ArrayList<String> h) {
+		boolean found = false;
+		for(int i = 0; i < h.size(); i++){
+			for(int j = 0; j < frames.length; j++){
+				if(frames[j] == null)
+					break;
+				if(h.get(i).equals(frames[j])){
+					System.out.println("HERE");
+					found = true;
+					break;
+				}
+			}
+
+			if(!found)
+				h.remove(i);
+		}
 	}
 }
