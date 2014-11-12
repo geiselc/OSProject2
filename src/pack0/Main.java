@@ -38,7 +38,8 @@ public class Main {
 	/** Variables **/
 	private int faultCount = 0;
 	private int refCount = 0;
-	private boolean isFreeFrame = true;
+	private boolean isFreeFrame;
+	private boolean isFault;
 	
 	public static void main(String[] args) {
 		new Main(args[0]);
@@ -77,7 +78,7 @@ public class Main {
 	}
 	
 	private void processReference(Reference r){
-		boolean fault = true;
+		isFault = false;
 		pt = new PageTableEntry();
 		System.out.println(r.toString());
 		
@@ -92,6 +93,8 @@ public class Main {
 						TableOne.put(r.binToInt(r.getPageNumber()), processEntry(P1));
 						//System.out.println(P1.getPid() + "\t" +TableOne.toString());
 				} else {
+					isFault = true;
+					faultCount++;
 					processList.add(r.getPid());
 					P1 = new Process(r.getPidFromString(r.getPid()));
 					TableOne = new HashMap<Integer, PageTableEntry>();
@@ -110,6 +113,8 @@ public class Main {
 					else
 						TableTwo.put(r.binToInt(r.getPageNumber()), processEntry(P2));
 				} else {
+					isFault = true;
+					faultCount++;
 					processList.add(r.getPid());
 					P2 = new Process(r.getPidFromString(r.getPid()));
 					TableTwo = new HashMap<Integer, PageTableEntry>();
@@ -128,6 +133,8 @@ public class Main {
 					else
 						TableThree.put(r.binToInt(r.getPageNumber()), processEntry(P3));
 				} else {
+					isFault = true;
+					faultCount++;
 					processList.add(r.getPid());
 					P3 = new Process(r.getPidFromString(r.getPid()));
 					TableThree = new HashMap<Integer, PageTableEntry>();
@@ -146,6 +153,8 @@ public class Main {
 					else
 						TableFour.put(r.binToInt(r.getPageNumber()), processEntry(P4));
 				} else {
+					isFault = true;
+					faultCount++;
 					processList.add(r.getPid());
 					P4 = new Process(r.getPidFromString(r.getPid()));
 					TableFour = new HashMap<Integer, PageTableEntry>();
@@ -164,6 +173,8 @@ public class Main {
 					else
 						TableFive.put(r.binToInt(r.getPageNumber()), processEntry(P5));
 				} else {
+					isFault = true;
+					faultCount++;
 					processList.add(r.getPid());
 					P5 = new Process(r.getPidFromString(r.getPid()));
 					TableFive = new HashMap<Integer, PageTableEntry>();
@@ -177,14 +188,20 @@ public class Main {
 				System.out.println("Error processing reference: " +r.toString());
 				System.exit(1);
 		}
+		
+		isFault = false;
 	}
 	
 	private PageTableEntry processEntry(Process p){
 		PageTableEntry pte = new PageTableEntry();
 		String temp = p.getCurrRef().getPageNumber();
-		//System.out.println(temp);
 		pte.setPageNum(Integer.parseInt(temp, 2));
-		// TODO SET FRAME NUM
+		isFreeFrame = checkFrameTable();
+		if(isFreeFrame){
+			//if frame available add to frame
+		} else {
+			// frame is not available, call page replacement 
+		}
 		pte.setValid(true);
 		pte.setResident(true);
 		
