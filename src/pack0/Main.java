@@ -18,6 +18,7 @@ public class Main {
 	/** Structures **/
 	private ArrayList<Reference> inFile;
 	private ArrayList<String> processList;
+	private ArrayList<String> history;
 	private String[] frames;
 	
 	/** Page Tables **/
@@ -40,6 +41,7 @@ public class Main {
 	private int refCount = 0;
 	private boolean isFreeFrame;
 	private boolean isFault;
+	private String victim;
 	
 	public static void main(String[] args) {
 		new Main(args[0]);
@@ -49,6 +51,7 @@ public class Main {
 		this.inFile = new ArrayList<Reference>();
 		this.processList = new ArrayList<String>();
 		this.frames = new String[PHYSICAL];
+		this.history = new ArrayList<String>();
 		
 		try{
 			String line;
@@ -58,10 +61,19 @@ public class Main {
 			while((line = br.readLine()) != null){
 				parts = line.split(":\t");
 				ref = new Reference(parts[0], parts[1]);
+				
 				if(Integer.parseInt(parts[1], 2) >= LOGICAL){
 					System.out.println("ERROR: Not enough memory!");
 					System.exit(1);
 				}
+				
+				if(history.contains(ref.toString())){
+					history.remove(ref.toString());
+					history.add(ref.toString());
+				} else {
+					history.add(ref.toString());
+				}
+
 				inFile.add(ref);
 			}
 			
@@ -91,9 +103,9 @@ public class Main {
 				if(processList.contains(r.getPid())){
 					P1.setCurrRef(r);
 					pt = processEntry(P1);
-					if(TableOne.containsKey(r.binToInt(r.getPageNumber())))
+					if(TableOne.containsKey(r.binToInt(r.getPageNumber()))){
 						System.out.println("Duplicate");
-					else
+					} else
 						TableOne.put(r.binToInt(r.getPageNumber()), processEntry(P1));
 						//System.out.println(P1.getPid() + "\t" +TableOne.toString());
 				} else {
@@ -200,19 +212,20 @@ public class Main {
 		PageTableEntry pte = new PageTableEntry();
 		String temp = p.getCurrRef().getPageNumber();
 		pte.setPageNum(Integer.parseInt(temp, 2));
-		System.out.println(pte.getFrameNum());
 		if(!isFrameSet(p)){
 			isFreeFrame = checkFrameTable();
 			if(isFreeFrame){
 				//if frame available add to frame
 				pte.setFrameNum(getFreeFrameIndex());
 				frames[pte.getFrameNum()] = p.toString();
-				System.out.println(pte.getFrameNum());
+				//System.out.println(pte.getFrameNum());
 			} else {
 				isFault = true;
 				faultCount++;
 				System.out.println("No free frame found");
-				// frame is not available, page fault, then call page replacement 
+				pageReplacement();
+				pte.setFrameNum(getFreeFrameIndex());
+				frames[pte.getFrameNum()] = p.toString();
 			}
 		}
 		pte.setValid(true);
@@ -262,6 +275,15 @@ public class Main {
 	}
 	
 	private void pageReplacement(){
+		victim = history.get(0);
+		System.out.println("VICTIM: "+victim);
+		for(int i = 0; i < frames.length; i++){
+			if(frames[i] != null && frames[i].equals(victim)){
+				frames[i] = null;
+				break;
+			}
+		}
 		
+		history.remove(0);
 	}
 }
