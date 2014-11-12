@@ -1,5 +1,6 @@
 package pack0;
 
+import java.awt.EventQueue;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -49,6 +50,20 @@ public class Main {
 	}
 	
 	public Main(String file){
+		
+		/** Launch the view **/
+		View view = new View();
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					View frame = new View();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
 		this.inFile = new ArrayList<Reference>();
 		this.processList = new ArrayList<String>();
 		this.frames = new String[PHYSICAL];
@@ -318,7 +333,6 @@ public class Main {
 				if(frames[j] == null)
 					break;
 				if(h.get(i).equals(frames[j])){
-					System.out.println("HERE");
 					found = true;
 					break;
 				}
