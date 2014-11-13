@@ -1,6 +1,8 @@
 package pack0;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -10,7 +12,6 @@ import java.math.*;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
 
 public class Main extends JFrame{
 	
@@ -69,6 +70,18 @@ public class Main extends JFrame{
 		for(int i = 0; i < (PHYSICAL); i++)
 			freeFrames.add(i);
 		
+		this.gui.button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Step");
+			}
+		});
+		
+		this.gui.button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Run");
+			}
+		});
+		
 		try{
 			String line;
 			String[] parts;
@@ -87,6 +100,7 @@ public class Main extends JFrame{
 			}
 			
 			br.close();
+			
 			for(int i = 0; i < inFile.size(); i++){
 				if(history.contains(inFile.get(i).toString())){
 					history.remove(inFile.get(i).toString());
@@ -124,7 +138,7 @@ public class Main extends JFrame{
 					if(TableOne.containsKey(r.binToInt(r.getPageNumber()))){
 						System.out.println("Already in Mem");
 					} else
-						TableOne.put(r.binToInt(r.getPageNumber()), processEntry(P1));
+						TableOne.put(r.binToInt(r.getPageNumber()), pt);
 						//System.out.println(P1.getPid() + "\t" +TableOne.toString());
 				} else {
 					isFault = true;
@@ -137,6 +151,10 @@ public class Main extends JFrame{
 					TableOne.put(r.binToInt(r.getPageNumber()), processEntry(P1));
 					//System.out.println(P1.getPid() + "\t" +TableOne.toString());
 				}
+				if(TableOne.get(r.binToInt(r.getPageNumber())).getFrameNum() == -1)
+					this.gui.PT1.setValueAt(null, TableOne.get(r.binToInt(r.getPageNumber())).getPageNum(),  1);
+				else
+					this.gui.PT1.setValueAt(TableOne.get(r.binToInt(r.getPageNumber())).getFrameNum(), TableOne.get(r.binToInt(r.getPageNumber())).getPageNum(),  1);
 				break;
 			case "P2":
 				if(processList.contains(r.getPid())){
@@ -145,7 +163,7 @@ public class Main extends JFrame{
 					if(TableTwo.containsKey(r.binToInt(r.getPageNumber()))) {
 						System.out.println("Already in Mem");
 					} else
-						TableTwo.put(r.binToInt(r.getPageNumber()), processEntry(P2));
+						TableTwo.put(r.binToInt(r.getPageNumber()), pt);
 				} else {
 					isFault = true;
 					faultCount++;
@@ -157,6 +175,10 @@ public class Main extends JFrame{
 					TableTwo.put(r.binToInt(r.getPageNumber()), processEntry(P2));
 					//System.out.println(P1.getPid() + "\t" +TableOne.toString());
 				}
+				if(TableTwo.get(r.binToInt(r.getPageNumber())).getFrameNum() == -1)
+					this.gui.PT2.setValueAt(null, TableTwo.get(r.binToInt(r.getPageNumber())).getPageNum(),  1);
+				else
+					this.gui.PT2.setValueAt(TableTwo.get(r.binToInt(r.getPageNumber())).getFrameNum(), TableTwo.get(r.binToInt(r.getPageNumber())).getPageNum(),  1);
 				break;
 			case "P3":
 				if(processList.contains(r.getPid())){
@@ -165,7 +187,7 @@ public class Main extends JFrame{
 					if(TableThree.containsKey(r.binToInt(r.getPageNumber()))) {
 						System.out.println("Already in Mem");
 					} else
-						TableThree.put(r.binToInt(r.getPageNumber()), processEntry(P3));
+						TableThree.put(r.binToInt(r.getPageNumber()), pt);
 				} else {
 					isFault = true;
 					faultCount++;
@@ -177,6 +199,10 @@ public class Main extends JFrame{
 					TableThree.put(r.binToInt(r.getPageNumber()), processEntry(P3));
 					//System.out.println(P1.getPid() + "\t" +TableOne.toString());
 				}
+				if(TableThree.get(r.binToInt(r.getPageNumber())).getFrameNum() == -1)
+					this.gui.PT3.setValueAt(null, TableThree.get(r.binToInt(r.getPageNumber())).getPageNum(),  1);
+				else
+					this.gui.PT3.setValueAt(TableThree.get(r.binToInt(r.getPageNumber())).getFrameNum(), TableThree.get(r.binToInt(r.getPageNumber())).getPageNum(),  1);
 				break;
 			case "P4":
 				if(processList.contains(r.getPid())){
@@ -185,7 +211,7 @@ public class Main extends JFrame{
 					if(TableFour.containsKey(r.binToInt(r.getPageNumber()))) {
 						System.out.println("Already in Mem");
 					} else
-						TableFour.put(r.binToInt(r.getPageNumber()), processEntry(P4));
+						TableFour.put(r.binToInt(r.getPageNumber()), pt);
 				} else {
 					isFault = true;
 					faultCount++;
@@ -197,6 +223,10 @@ public class Main extends JFrame{
 					TableFour.put(r.binToInt(r.getPageNumber()), processEntry(P4));
 					//System.out.println(P1.getPid() + "\t" +TableOne.toString());
 				}
+				if(TableFour.get(r.binToInt(r.getPageNumber())).getFrameNum() == -1)
+					this.gui.PT4.setValueAt(null, TableFour.get(r.binToInt(r.getPageNumber())).getPageNum(),  1);
+				else
+					this.gui.PT4.setValueAt(TableFour.get(r.binToInt(r.getPageNumber())).getFrameNum(), TableFour.get(r.binToInt(r.getPageNumber())).getPageNum(),  1);
 				break;
 			case "P5":
 				if(processList.contains(r.getPid())){
@@ -204,8 +234,10 @@ public class Main extends JFrame{
 					pt = processEntry(P5);
 					if(TableFive.containsKey(r.binToInt(r.getPageNumber()))) {
 						System.out.println("Already in Mem");
-					} else
-						TableFive.put(r.binToInt(r.getPageNumber()), processEntry(P5));
+					} else {
+						TableFive.put(r.binToInt(r.getPageNumber()), pt);
+						//System.out.println(P5.getPid() + "\t" +TableFive.toString());
+					}
 				} else {
 					isFault = true;
 					faultCount++;
@@ -217,6 +249,10 @@ public class Main extends JFrame{
 					TableFive.put(r.binToInt(r.getPageNumber()), processEntry(P5));
 					//System.out.println(P1.getPid() + "\t" +TableOne.toString());
 				}
+				if(TableFive.get(r.binToInt(r.getPageNumber())).getFrameNum() == -1)
+					this.gui.PT5.setValueAt(null, TableFive.get(r.binToInt(r.getPageNumber())).getPageNum(),  1);
+				else
+					this.gui.PT5.setValueAt(TableFive.get(r.binToInt(r.getPageNumber())).getFrameNum(), TableFive.get(r.binToInt(r.getPageNumber())).getPageNum(),  1);
 				break;
 			default:
 				System.out.println("Error processing reference: " +r.toString());
@@ -235,26 +271,27 @@ public class Main extends JFrame{
 		PageTableEntry pte = new PageTableEntry();
 		String temp = p.getCurrRef().getPageNumber();
 		pte.setPageNum(Integer.parseInt(temp, 2));
+		int f;
 		if(!isFrameSet(p)){
-			//isFreeFrame = checkFrameTable();
 			if(!freeFrames.isEmpty()){
 				//if frame available add to frame
-				int f = freeFrames.get(0);
+				f = freeFrames.get(0);
 				pte.setFrameNum(f);
 				frames[f] = p.toString();
 				freeFrames.remove(0);
-				//System.out.println(pte.getFrameNum());
 			} else {
 				isFault = true;
 				faultCount++;
 				System.out.println("No free frame found");
 				pageReplacement();
 				System.out.println(freeFrames);
-				int f = freeFrames.get(0);
+				f = freeFrames.get(0);
 				pte.setFrameNum(f);
 				frames[f] = p.toString();
 				freeFrames.remove(0);
 			}
+			
+			pte.setFrameNum(f);
 		}
 		pte.setValid(true);
 		pte.setResident(true);
@@ -274,24 +311,51 @@ public class Main extends JFrame{
 	}
 	
 	private void pageReplacement(){
-		System.out.println(history);
 		victim = history.get(0);
 		this.gui.VictimProcess.setText(victim.substring(0, 2));
 		this.gui.VictimPage.setText(victim.substring(3));
-		System.out.println("VICTIM: "+victim);
 		for(int i = 0; i < frames.length; i++){
 			System.out.println(frames[i]);
 			if(frames[i] != null && frames[i].equals(victim)){
-				//System.out.println(frames[i]);
+
 				frames[i] = null;
 				freeFrames.add(i);
-				//System.out.println("Added Frame: "+freeFrames.get(0));
+
 				break;
-			} //else 
-				//System.out.println("DERP!");
+			} 
 		}
 		
+		setVictimStats(victim);
+		
 		history.remove(0);
+	}
+	
+	private void setVictimStats(String v){
+		String p = v.substring(0, 2);
+		String pNum = v.substring(4);
+		
+		switch(p){
+			case "P1":
+				TableOne.get(Integer.parseInt(pNum, 2)).setFrameNum(-1);
+				TableOne.get(Integer.parseInt(pNum, 2)).setResident(false);
+				break;
+			case "P2":
+				TableTwo.get(Integer.parseInt(pNum, 2)).setFrameNum(-1);
+				TableTwo.get(Integer.parseInt(pNum, 2)).setResident(false);
+				break;
+			case "P3":
+				TableThree.get(Integer.parseInt(pNum, 2)).setFrameNum(-1);
+				TableThree.get(Integer.parseInt(pNum, 2)).setResident(false);
+				break;
+			case "P4":
+				TableFour.get(Integer.parseInt(pNum, 2)).setFrameNum(-1);
+				TableFour.get(Integer.parseInt(pNum, 2)).setResident(false);
+				break;
+			case "P5":
+				TableFive.get(Integer.parseInt(pNum, 2)).setFrameNum(-1);
+				TableFive.get(Integer.parseInt(pNum, 2)).setResident(false);
+				break;
+		}
 	}
 	
 	private void trimHistory(ArrayList<String> h) {
