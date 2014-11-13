@@ -8,8 +8,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.math.*;
 
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
-public class Main {
+
+public class Main extends JFrame{
 	
 	/** Constants **/
 	private final int LOGICAL = 64;		// KB = 64 Pages in Logical Mem Space
@@ -45,30 +48,30 @@ public class Main {
 	private boolean isFault;
 	private String victim;
 	
+	/** GUI **/
+	GUI gui;
 	public static void main(String[] args) {
 		new Main(args[0]);
 	}
 	
 	public Main(String file){
+		this.gui = new GUI();
+		this.gui.run(gui);
 		
-		/** Launch the view **/
-		View view = new View();
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					View frame = new View();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-		
+		//this.gui.label.setText("Hi");
+
 		this.inFile = new ArrayList<Reference>();
 		this.processList = new ArrayList<String>();
 		this.frames = new String[PHYSICAL];
 		this.history = new ArrayList<String>();
 		this.freeFrames = new ArrayList<Integer>();
+		
+		
+//		this.gui.label.setText("Hello");
+//		System.out.println(gui.label.getText());
+//		this.gui.repaint();
+		
+		
 		
 		for(int i = 0; i < (PHYSICAL); i++)
 			freeFrames.add(i);
@@ -86,14 +89,7 @@ public class Main {
 					System.out.println("ERROR: Not enough memory!");
 					System.exit(1);
 				}
-				
-//				if(history.contains(ref.toString())){
-//					history.remove(ref.toString());
-//					history.add(ref.toString());
-//				} else {
-//					history.add(ref.toString());
-//				}
-//				trimHistory(history);
+
 				inFile.add(ref);
 			}
 			
@@ -234,6 +230,11 @@ public class Main {
 		}
 		
 		isFault = false;
+		
+		// Draw the current state of the frame table on the GUI
+		for(int i = 0; i < frames.length; i++){
+			this.gui.frameTable.setValueAt(frames[i], i, 1);
+		}
 	}
 	
 	private PageTableEntry processEntry(Process p){
@@ -278,38 +279,11 @@ public class Main {
 		return result;
 	}
 	
-//	private boolean checkFrameTable(){
-//		boolean result = false;
-//		for(int i = 0; i < frames.length; i++){
-//			if(frames[i] == null){
-//				result = true;
-//				break;
-//			}
-//		}
-//		return result;
-//	}
-	
-//	private int getFreeFrameIndex(){
-//		int result = 0;
-//		boolean found = false;
-//		for(int i = 0; i < frames.length; i++){
-//			if(frames[i] == null){
-//				result = i;
-//				found = true;
-//				break;
-//			}
-//		}
-//		
-//		if(!found){
-//			System.out.println("No free frame");
-//		}
-//		
-//		return result;
-//	}
-	
 	private void pageReplacement(){
 		System.out.println(history);
 		victim = history.get(0);
+		this.gui.VictimProcess.setText(victim.substring(0, 2));
+		this.gui.VictimPage.setText(victim.substring(3));
 		System.out.println("VICTIM: "+victim);
 		for(int i = 0; i < frames.length; i++){
 			System.out.println(frames[i]);
