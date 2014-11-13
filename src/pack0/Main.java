@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.math.*;
@@ -57,6 +58,8 @@ public class Main extends JFrame{
 	
 	/** GUI **/
 	GUI gui;
+	DecimalFormat df = new DecimalFormat("#.##");
+	
 	public static void main(String[] args) {
 		new Main(args[0]);
 	}
@@ -128,7 +131,6 @@ public class Main extends JFrame{
 			this.gui.CurrentProc.setText(ref.getPid());
 			this.gui.CurrentPage.setText(ref.getPageNumber());
 			processReference(ref);
-			refCount++;
 			trimHistory(history);
 		} catch (IOException e) {
 			System.out.println("Error parsing input file");
@@ -156,12 +158,17 @@ public class Main extends JFrame{
 		isFault = false;
 		pt = new PageTableEntry();
 		System.out.println(r.toString());
+		
+		// Reset Victim Labels if need be
 		this.gui.VictimPage.setText("");
 		this.gui.VictimProcess.setText("");
+		
+		// Get and handle the current Process ID 
 		switch(r.getPid()){
 			case "P1":
 				if(processList.contains(r.getPid())){
 					P1.setCurrRef(r);
+					P1.refCount++;
 					pt = processEntry(P1);
 					if(TableOne.containsKey(r.binToInt(r.getPageNumber()))){
 						System.out.println("Already in Mem");
@@ -171,9 +178,10 @@ public class Main extends JFrame{
 						TableOne.put(r.binToInt(r.getPageNumber()), pt);
 				} else {
 					isFault = true;
-					faultCount++;
 					processList.add(r.getPid());
 					P1 = new Process(r.getPidFromString(r.getPid()));
+					P1.refCount++;
+					P1.faultCount++;
 					TableOne = new HashMap<Integer, PageTableEntry>();
 					P1.setPageTable(TableOne);
 					P1.setCurrRef(r);
@@ -187,10 +195,12 @@ public class Main extends JFrame{
 				}
 				this.gui.PT1.setValueAt(TableOne.get(r.binToInt(r.getPageNumber())).isValid(), TableOne.get(r.binToInt(r.getPageNumber())).getPageNum(),  2);
 				this.gui.PT1.setValueAt(TableOne.get(r.binToInt(r.getPageNumber())).isResident(), TableOne.get(r.binToInt(r.getPageNumber())).getPageNum(),  3);
+				this.gui.P1FR.setText(""+(df.format((double) P1.faultCount / P1.refCount * 100) + "%")); 
 				break;
 			case "P2":
 				if(processList.contains(r.getPid())){
 					P2.setCurrRef(r);
+					P2.refCount++;
 					pt = processEntry(P2);
 					if(TableTwo.containsKey(r.binToInt(r.getPageNumber()))) {
 						System.out.println("Already in Mem");
@@ -200,9 +210,10 @@ public class Main extends JFrame{
 						TableTwo.put(r.binToInt(r.getPageNumber()), pt);
 				} else {
 					isFault = true;
-					faultCount++;
 					processList.add(r.getPid());
 					P2 = new Process(r.getPidFromString(r.getPid()));
+					P2.refCount++;
+					P2.faultCount++;
 					TableTwo = new HashMap<Integer, PageTableEntry>();
 					P2.setPageTable(TableTwo);
 					P2.setCurrRef(r);
@@ -214,10 +225,12 @@ public class Main extends JFrame{
 					this.gui.PT2.setValueAt(TableTwo.get(r.binToInt(r.getPageNumber())).getFrameNum(), TableTwo.get(r.binToInt(r.getPageNumber())).getPageNum(),  1);
 				this.gui.PT2.setValueAt(TableTwo.get(r.binToInt(r.getPageNumber())).isValid(), TableTwo.get(r.binToInt(r.getPageNumber())).getPageNum(),  2);
 				this.gui.PT2.setValueAt(TableTwo.get(r.binToInt(r.getPageNumber())).isResident(), TableTwo.get(r.binToInt(r.getPageNumber())).getPageNum(),  3);
+				this.gui.P2FR.setText(""+(df.format((double) P2.faultCount / P2.refCount * 100) + "%")); 
 				break;
 			case "P3":
 				if(processList.contains(r.getPid())){
 					P3.setCurrRef(r);
+					P3.refCount++;
 					pt = processEntry(P3);
 					if(TableThree.containsKey(r.binToInt(r.getPageNumber()))) {
 						System.out.println("Already in Mem");
@@ -227,9 +240,10 @@ public class Main extends JFrame{
 						TableThree.put(r.binToInt(r.getPageNumber()), pt);
 				} else {
 					isFault = true;
-					faultCount++;
 					processList.add(r.getPid());
 					P3 = new Process(r.getPidFromString(r.getPid()));
+					P3.refCount++;
+					P3.faultCount++;
 					TableThree = new HashMap<Integer, PageTableEntry>();
 					P3.setPageTable(TableThree);
 					P3.setCurrRef(r);
@@ -241,10 +255,12 @@ public class Main extends JFrame{
 					this.gui.PT3.setValueAt(TableThree.get(r.binToInt(r.getPageNumber())).getFrameNum(), TableThree.get(r.binToInt(r.getPageNumber())).getPageNum(),  1);
 				this.gui.PT3.setValueAt(TableThree.get(r.binToInt(r.getPageNumber())).isValid(), TableThree.get(r.binToInt(r.getPageNumber())).getPageNum(),  2);
 				this.gui.PT3.setValueAt(TableThree.get(r.binToInt(r.getPageNumber())).isResident(), TableThree.get(r.binToInt(r.getPageNumber())).getPageNum(),  3);
+				this.gui.P3FR.setText(""+(df.format((double) P3.faultCount / P3.refCount * 100) + "%")); 
 				break;
 			case "P4":
 				if(processList.contains(r.getPid())){
 					P4.setCurrRef(r);
+					P4.refCount++;
 					pt = processEntry(P4);
 					if(TableFour.containsKey(r.binToInt(r.getPageNumber()))) {
 						System.out.println("Already in Mem");
@@ -254,9 +270,10 @@ public class Main extends JFrame{
 						TableFour.put(r.binToInt(r.getPageNumber()), pt);
 				} else {
 					isFault = true;
-					faultCount++;
 					processList.add(r.getPid());
 					P4 = new Process(r.getPidFromString(r.getPid()));
+					P4.refCount++;
+					P4.faultCount++;
 					TableFour = new HashMap<Integer, PageTableEntry>();
 					P4.setPageTable(TableFour);
 					P4.setCurrRef(r);
@@ -268,10 +285,12 @@ public class Main extends JFrame{
 					this.gui.PT4.setValueAt(TableFour.get(r.binToInt(r.getPageNumber())).getFrameNum(), TableFour.get(r.binToInt(r.getPageNumber())).getPageNum(),  1);
 				this.gui.PT4.setValueAt(TableFour.get(r.binToInt(r.getPageNumber())).isValid(), TableFour.get(r.binToInt(r.getPageNumber())).getPageNum(),  2);
 				this.gui.PT4.setValueAt(TableFour.get(r.binToInt(r.getPageNumber())).isResident(), TableFour.get(r.binToInt(r.getPageNumber())).getPageNum(),  3);
+				this.gui.P4FR.setText(""+(df.format((double) P4.faultCount / P4.refCount * 100) + "%")); 
 				break;
 			case "P5":
 				if(processList.contains(r.getPid())){
 					P5.setCurrRef(r);
+					P5.refCount++;
 					pt = processEntry(P5);
 					if(TableFive.containsKey(r.binToInt(r.getPageNumber()))) {
 						System.out.println("Already in Mem");
@@ -282,9 +301,10 @@ public class Main extends JFrame{
 					}
 				} else {
 					isFault = true;
-					faultCount++;
 					processList.add(r.getPid());
 					P5 = new Process(r.getPidFromString(r.getPid()));
+					P5.refCount++;
+					P5.faultCount++;
 					TableFive = new HashMap<Integer, PageTableEntry>();
 					P5.setPageTable(TableFive);
 					P5.setCurrRef(r);
@@ -296,6 +316,7 @@ public class Main extends JFrame{
 					this.gui.PT5.setValueAt(TableFive.get(r.binToInt(r.getPageNumber())).getFrameNum(), TableFive.get(r.binToInt(r.getPageNumber())).getPageNum(),  1);
 				this.gui.PT5.setValueAt(TableFive.get(r.binToInt(r.getPageNumber())).isValid(), TableFive.get(r.binToInt(r.getPageNumber())).getPageNum(),  2);
 				this.gui.PT5.setValueAt(TableFive.get(r.binToInt(r.getPageNumber())).isResident(), TableFive.get(r.binToInt(r.getPageNumber())).getPageNum(),  3);
+				this.gui.P5FR.setText(""+(df.format((double) P5.faultCount / P5.refCount * 100) + "%")); 
 				
 				break;
 			default:
@@ -325,7 +346,7 @@ public class Main extends JFrame{
 			} else {
 				//no frame available, need to replace 
 				isFault = true;
-				faultCount++;
+				p.faultCount++;
 				System.out.println("No free frame found");
 				pageReplacement();
 				f = freeFrames.get(0);

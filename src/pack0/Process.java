@@ -8,6 +8,8 @@ public class Process {
 	protected int pid;
 	protected Reference currRef;
 	protected HashMap<Integer, PageTableEntry> pt;
+	protected int faultCount = 0;
+	protected int refCount = 0;
 
 	public Process() {}
 	
