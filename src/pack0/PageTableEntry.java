@@ -1,5 +1,10 @@
 package pack0;
 
+/**
+ * The main data structure used for maintaining a process's page table. Each page
+ * read in has its own entry in the page table. Each entry consists of the page number,
+ * frame number, and boolean flags indicating valid and resident bits. 
+ */
 public class PageTableEntry {
 	
 	protected int pageNum;

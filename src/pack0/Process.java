@@ -3,6 +3,11 @@ package pack0;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Process data structure. Stores process id, the current reference,
+ * its page table, count of faults for this process, and number of times
+ * this process has been referenced. 
+ */
 public class Process {
 
 	protected int pid;

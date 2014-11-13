@@ -1,5 +1,9 @@
 package pack0;
 
+/**
+ * Data structure for storing a reference (a line read in from the input file)
+ * in a more convenient way. 
+ */
 public class Reference {
 
 	protected String pid;

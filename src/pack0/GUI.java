@@ -19,6 +19,11 @@ import java.awt.Button;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * Main GUI View container
+ * Mostly controlled by Main class, this class just declares and
+ * stores GUI components. 
+ */
 public class GUI extends JFrame {
 
 	JPanel contentPane;
