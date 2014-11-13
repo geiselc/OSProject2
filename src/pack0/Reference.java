@@ -1,3 +1,6 @@
+/**
+ * @author Conrad Geisel
+ */
 package pack0;
 
 /**
