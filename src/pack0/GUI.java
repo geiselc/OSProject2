@@ -41,6 +41,7 @@ public class GUI extends JFrame {
 	JLabel P4FR;
 	JLabel P5FR;
 	JTable frameTable;
+	JLabel Empty4;
 	
 	/** Buttons **/
 	Button button;
@@ -93,7 +94,7 @@ public class GUI extends JFrame {
 		CurrentPage.setVerticalAlignment(SwingConstants.TOP);
 		panel.add(CurrentPage);
 		
-		JLabel Empty4 = new JLabel("");
+		Empty4 = new JLabel("");
 		Empty4.setVerticalAlignment(SwingConstants.TOP);
 		panel.add(Empty4);
 		
@@ -632,7 +633,5 @@ public class GUI extends JFrame {
 		
 		button_1 = new Button("Run to Completion");
 		panel_2.add(button_1);
-		
-		frameTable.setValueAt("000001", 15, 1);
 	}
 }
