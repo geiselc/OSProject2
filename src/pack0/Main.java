@@ -55,23 +55,16 @@ public class Main extends JFrame{
 	}
 	
 	public Main(String file){
+		
+		/** Start the GUI **/
 		this.gui = new GUI();
 		this.gui.run(gui);
-		
-		//this.gui.label.setText("Hi");
 
 		this.inFile = new ArrayList<Reference>();
 		this.processList = new ArrayList<String>();
 		this.frames = new String[PHYSICAL];
 		this.history = new ArrayList<String>();
 		this.freeFrames = new ArrayList<Integer>();
-		
-		
-//		this.gui.label.setText("Hello");
-//		System.out.println(gui.label.getText());
-//		this.gui.repaint();
-		
-		
 		
 		for(int i = 0; i < (PHYSICAL); i++)
 			freeFrames.add(i);
@@ -101,7 +94,8 @@ public class Main extends JFrame{
 				} else {
 					history.add(inFile.get(i).toString());
 				}
-				
+				this.gui.CurrentProc.setText(inFile.get(i).getPid());
+				this.gui.CurrentPage.setText(inFile.get(i).getPageNumber());
 				processReference(inFile.get(i));
 				refCount++;
 				trimHistory(history);

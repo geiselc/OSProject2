@@ -13,6 +13,7 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import java.awt.GridLayout;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JLayeredPane;
 
 public class GUI extends JFrame {
 
@@ -161,19 +162,409 @@ public class GUI extends JFrame {
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
 		
 		P1 = new JTable();
-		tabbedPane.addTab("New tab", null, P1, null);
+		P1.setModel(new DefaultTableModel(
+			new Object[][] {
+				{new Integer(1), null, null, null},
+				{new Integer(2), null, null, null},
+				{new Integer(3), null, null, null},
+				{new Integer(4), null, null, null},
+				{new Integer(5), null, null, null},
+				{new Integer(6), null, null, null},
+				{new Integer(7), null, null, null},
+				{new Integer(8), null, null, null},
+				{new Integer(9), null, null, null},
+				{new Integer(10), null, null, null},
+				{new Integer(11), null, null, null},
+				{new Integer(12), null, null, null},
+				{new Integer(13), null, null, null},
+				{new Integer(14), null, null, null},
+				{new Integer(15), null, null, null},
+				{new Integer(16), null, null, null},
+				{new Integer(17), null, null, null},
+				{new Integer(18), null, null, null},
+				{new Integer(19), null, null, null},
+				{new Integer(20), null, null, null},
+				{new Integer(21), null, null, null},
+				{new Integer(22), null, null, null},
+				{new Integer(23), null, null, null},
+				{new Integer(24), null, null, null},
+				{new Integer(25), null, null, null},
+				{new Integer(26), null, null, null},
+				{new Integer(27), null, null, null},
+				{new Integer(28), null, null, null},
+				{new Integer(29), null, null, null},
+				{new Integer(30), null, null, null},
+				{new Integer(31), null, null, null},
+				{new Integer(32), null, null, null},
+				{new Integer(33), null, null, null},
+				{new Integer(34), null, null, null},
+				{new Integer(35), null, null, null},
+				{new Integer(36), null, null, null},
+				{new Integer(37), null, null, null},
+				{new Integer(38), null, null, null},
+				{new Integer(39), null, null, null},
+				{new Integer(40), null, null, null},
+				{new Integer(41), null, null, null},
+				{new Integer(42), null, null, null},
+				{new Integer(43), null, null, null},
+				{new Integer(44), null, null, null},
+				{new Integer(45), null, null, null},
+				{new Integer(46), null, null, null},
+				{new Integer(47), null, null, null},
+				{new Integer(48), null, null, null},
+				{new Integer(49), null, null, null},
+				{new Integer(50), null, null, null},
+				{new Integer(51), null, null, null},
+				{new Integer(52), null, null, null},
+				{new Integer(53), null, null, null},
+				{new Integer(54), null, null, null},
+				{new Integer(55), null, null, null},
+				{new Integer(56), null, null, null},
+				{new Integer(57), null, null, null},
+				{new Integer(58), null, null, null},
+				{new Integer(59), null, null, null},
+				{new Integer(60), null, null, null},
+				{new Integer(61), null, null, null},
+				{new Integer(62), null, null, null},
+				{new Integer(63), null, null, null},
+				{new Integer(64), null, null, null},
+			},
+			new String[] {
+				"Page #", "Frame #", "Valid", "Resident"
+			}
+		) {
+			Class[] columnTypes = new Class[] {
+				Integer.class, Integer.class, Boolean.class, Boolean.class
+			};
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+		});
+		tabbedPane.addTab("P1", null, new JScrollPane(P1), null);
 		
 		P2 = new JTable();
-		tabbedPane.addTab("New tab", null, P2, null);
+		P2.setModel(new DefaultTableModel(
+				new Object[][] {
+					{new Integer(1), null, null, null},
+					{new Integer(2), null, null, null},
+					{new Integer(3), null, null, null},
+					{new Integer(4), null, null, null},
+					{new Integer(5), null, null, null},
+					{new Integer(6), null, null, null},
+					{new Integer(7), null, null, null},
+					{new Integer(8), null, null, null},
+					{new Integer(9), null, null, null},
+					{new Integer(10), null, null, null},
+					{new Integer(11), null, null, null},
+					{new Integer(12), null, null, null},
+					{new Integer(13), null, null, null},
+					{new Integer(14), null, null, null},
+					{new Integer(15), null, null, null},
+					{new Integer(16), null, null, null},
+					{new Integer(17), null, null, null},
+					{new Integer(18), null, null, null},
+					{new Integer(19), null, null, null},
+					{new Integer(20), null, null, null},
+					{new Integer(21), null, null, null},
+					{new Integer(22), null, null, null},
+					{new Integer(23), null, null, null},
+					{new Integer(24), null, null, null},
+					{new Integer(25), null, null, null},
+					{new Integer(26), null, null, null},
+					{new Integer(27), null, null, null},
+					{new Integer(28), null, null, null},
+					{new Integer(29), null, null, null},
+					{new Integer(30), null, null, null},
+					{new Integer(31), null, null, null},
+					{new Integer(32), null, null, null},
+					{new Integer(33), null, null, null},
+					{new Integer(34), null, null, null},
+					{new Integer(35), null, null, null},
+					{new Integer(36), null, null, null},
+					{new Integer(37), null, null, null},
+					{new Integer(38), null, null, null},
+					{new Integer(39), null, null, null},
+					{new Integer(40), null, null, null},
+					{new Integer(41), null, null, null},
+					{new Integer(42), null, null, null},
+					{new Integer(43), null, null, null},
+					{new Integer(44), null, null, null},
+					{new Integer(45), null, null, null},
+					{new Integer(46), null, null, null},
+					{new Integer(47), null, null, null},
+					{new Integer(48), null, null, null},
+					{new Integer(49), null, null, null},
+					{new Integer(50), null, null, null},
+					{new Integer(51), null, null, null},
+					{new Integer(52), null, null, null},
+					{new Integer(53), null, null, null},
+					{new Integer(54), null, null, null},
+					{new Integer(55), null, null, null},
+					{new Integer(56), null, null, null},
+					{new Integer(57), null, null, null},
+					{new Integer(58), null, null, null},
+					{new Integer(59), null, null, null},
+					{new Integer(60), null, null, null},
+					{new Integer(61), null, null, null},
+					{new Integer(62), null, null, null},
+					{new Integer(63), null, null, null},
+					{new Integer(64), null, null, null},
+				},
+				new String[] {
+					"Page #", "Frame #", "Valid", "Resident"
+				}
+			) {
+				Class[] columnTypes = new Class[] {
+					Integer.class, Integer.class, Boolean.class, Boolean.class
+				};
+				public Class getColumnClass(int columnIndex) {
+					return columnTypes[columnIndex];
+				}
+			});
+		tabbedPane.addTab("P2", null, new JScrollPane(P2), null);
 		
 		P3 = new JTable();
-		tabbedPane.addTab("New tab", null, P3, null);
+		P3.setModel(new DefaultTableModel(
+				new Object[][] {
+					{new Integer(1), null, null, null},
+					{new Integer(2), null, null, null},
+					{new Integer(3), null, null, null},
+					{new Integer(4), null, null, null},
+					{new Integer(5), null, null, null},
+					{new Integer(6), null, null, null},
+					{new Integer(7), null, null, null},
+					{new Integer(8), null, null, null},
+					{new Integer(9), null, null, null},
+					{new Integer(10), null, null, null},
+					{new Integer(11), null, null, null},
+					{new Integer(12), null, null, null},
+					{new Integer(13), null, null, null},
+					{new Integer(14), null, null, null},
+					{new Integer(15), null, null, null},
+					{new Integer(16), null, null, null},
+					{new Integer(17), null, null, null},
+					{new Integer(18), null, null, null},
+					{new Integer(19), null, null, null},
+					{new Integer(20), null, null, null},
+					{new Integer(21), null, null, null},
+					{new Integer(22), null, null, null},
+					{new Integer(23), null, null, null},
+					{new Integer(24), null, null, null},
+					{new Integer(25), null, null, null},
+					{new Integer(26), null, null, null},
+					{new Integer(27), null, null, null},
+					{new Integer(28), null, null, null},
+					{new Integer(29), null, null, null},
+					{new Integer(30), null, null, null},
+					{new Integer(31), null, null, null},
+					{new Integer(32), null, null, null},
+					{new Integer(33), null, null, null},
+					{new Integer(34), null, null, null},
+					{new Integer(35), null, null, null},
+					{new Integer(36), null, null, null},
+					{new Integer(37), null, null, null},
+					{new Integer(38), null, null, null},
+					{new Integer(39), null, null, null},
+					{new Integer(40), null, null, null},
+					{new Integer(41), null, null, null},
+					{new Integer(42), null, null, null},
+					{new Integer(43), null, null, null},
+					{new Integer(44), null, null, null},
+					{new Integer(45), null, null, null},
+					{new Integer(46), null, null, null},
+					{new Integer(47), null, null, null},
+					{new Integer(48), null, null, null},
+					{new Integer(49), null, null, null},
+					{new Integer(50), null, null, null},
+					{new Integer(51), null, null, null},
+					{new Integer(52), null, null, null},
+					{new Integer(53), null, null, null},
+					{new Integer(54), null, null, null},
+					{new Integer(55), null, null, null},
+					{new Integer(56), null, null, null},
+					{new Integer(57), null, null, null},
+					{new Integer(58), null, null, null},
+					{new Integer(59), null, null, null},
+					{new Integer(60), null, null, null},
+					{new Integer(61), null, null, null},
+					{new Integer(62), null, null, null},
+					{new Integer(63), null, null, null},
+					{new Integer(64), null, null, null},
+				},
+				new String[] {
+					"Page #", "Frame #", "Valid", "Resident"
+				}
+			) {
+				Class[] columnTypes = new Class[] {
+					Integer.class, Integer.class, Boolean.class, Boolean.class
+				};
+				public Class getColumnClass(int columnIndex) {
+					return columnTypes[columnIndex];
+				}
+			});
+		tabbedPane.addTab("P3", null, new JScrollPane(P3), null);
 		
 		P4 = new JTable();
-		tabbedPane.addTab("New tab", null, P4, null);
+		P4.setModel(new DefaultTableModel(
+				new Object[][] {
+					{new Integer(1), null, null, null},
+					{new Integer(2), null, null, null},
+					{new Integer(3), null, null, null},
+					{new Integer(4), null, null, null},
+					{new Integer(5), null, null, null},
+					{new Integer(6), null, null, null},
+					{new Integer(7), null, null, null},
+					{new Integer(8), null, null, null},
+					{new Integer(9), null, null, null},
+					{new Integer(10), null, null, null},
+					{new Integer(11), null, null, null},
+					{new Integer(12), null, null, null},
+					{new Integer(13), null, null, null},
+					{new Integer(14), null, null, null},
+					{new Integer(15), null, null, null},
+					{new Integer(16), null, null, null},
+					{new Integer(17), null, null, null},
+					{new Integer(18), null, null, null},
+					{new Integer(19), null, null, null},
+					{new Integer(20), null, null, null},
+					{new Integer(21), null, null, null},
+					{new Integer(22), null, null, null},
+					{new Integer(23), null, null, null},
+					{new Integer(24), null, null, null},
+					{new Integer(25), null, null, null},
+					{new Integer(26), null, null, null},
+					{new Integer(27), null, null, null},
+					{new Integer(28), null, null, null},
+					{new Integer(29), null, null, null},
+					{new Integer(30), null, null, null},
+					{new Integer(31), null, null, null},
+					{new Integer(32), null, null, null},
+					{new Integer(33), null, null, null},
+					{new Integer(34), null, null, null},
+					{new Integer(35), null, null, null},
+					{new Integer(36), null, null, null},
+					{new Integer(37), null, null, null},
+					{new Integer(38), null, null, null},
+					{new Integer(39), null, null, null},
+					{new Integer(40), null, null, null},
+					{new Integer(41), null, null, null},
+					{new Integer(42), null, null, null},
+					{new Integer(43), null, null, null},
+					{new Integer(44), null, null, null},
+					{new Integer(45), null, null, null},
+					{new Integer(46), null, null, null},
+					{new Integer(47), null, null, null},
+					{new Integer(48), null, null, null},
+					{new Integer(49), null, null, null},
+					{new Integer(50), null, null, null},
+					{new Integer(51), null, null, null},
+					{new Integer(52), null, null, null},
+					{new Integer(53), null, null, null},
+					{new Integer(54), null, null, null},
+					{new Integer(55), null, null, null},
+					{new Integer(56), null, null, null},
+					{new Integer(57), null, null, null},
+					{new Integer(58), null, null, null},
+					{new Integer(59), null, null, null},
+					{new Integer(60), null, null, null},
+					{new Integer(61), null, null, null},
+					{new Integer(62), null, null, null},
+					{new Integer(63), null, null, null},
+					{new Integer(64), null, null, null},
+				},
+				new String[] {
+					"Page #", "Frame #", "Valid", "Resident"
+				}
+			) {
+				Class[] columnTypes = new Class[] {
+					Integer.class, Integer.class, Boolean.class, Boolean.class
+				};
+				public Class getColumnClass(int columnIndex) {
+					return columnTypes[columnIndex];
+				}
+			});
+		tabbedPane.addTab("P4", null, new JScrollPane(P4), null);
 		
 		P5 = new JTable();
-		tabbedPane.addTab("New tab", null, P5, null);
+		P5.setModel(new DefaultTableModel(
+				new Object[][] {
+					{new Integer(1), null, null, null},
+					{new Integer(2), null, null, null},
+					{new Integer(3), null, null, null},
+					{new Integer(4), null, null, null},
+					{new Integer(5), null, null, null},
+					{new Integer(6), null, null, null},
+					{new Integer(7), null, null, null},
+					{new Integer(8), null, null, null},
+					{new Integer(9), null, null, null},
+					{new Integer(10), null, null, null},
+					{new Integer(11), null, null, null},
+					{new Integer(12), null, null, null},
+					{new Integer(13), null, null, null},
+					{new Integer(14), null, null, null},
+					{new Integer(15), null, null, null},
+					{new Integer(16), null, null, null},
+					{new Integer(17), null, null, null},
+					{new Integer(18), null, null, null},
+					{new Integer(19), null, null, null},
+					{new Integer(20), null, null, null},
+					{new Integer(21), null, null, null},
+					{new Integer(22), null, null, null},
+					{new Integer(23), null, null, null},
+					{new Integer(24), null, null, null},
+					{new Integer(25), null, null, null},
+					{new Integer(26), null, null, null},
+					{new Integer(27), null, null, null},
+					{new Integer(28), null, null, null},
+					{new Integer(29), null, null, null},
+					{new Integer(30), null, null, null},
+					{new Integer(31), null, null, null},
+					{new Integer(32), null, null, null},
+					{new Integer(33), null, null, null},
+					{new Integer(34), null, null, null},
+					{new Integer(35), null, null, null},
+					{new Integer(36), null, null, null},
+					{new Integer(37), null, null, null},
+					{new Integer(38), null, null, null},
+					{new Integer(39), null, null, null},
+					{new Integer(40), null, null, null},
+					{new Integer(41), null, null, null},
+					{new Integer(42), null, null, null},
+					{new Integer(43), null, null, null},
+					{new Integer(44), null, null, null},
+					{new Integer(45), null, null, null},
+					{new Integer(46), null, null, null},
+					{new Integer(47), null, null, null},
+					{new Integer(48), null, null, null},
+					{new Integer(49), null, null, null},
+					{new Integer(50), null, null, null},
+					{new Integer(51), null, null, null},
+					{new Integer(52), null, null, null},
+					{new Integer(53), null, null, null},
+					{new Integer(54), null, null, null},
+					{new Integer(55), null, null, null},
+					{new Integer(56), null, null, null},
+					{new Integer(57), null, null, null},
+					{new Integer(58), null, null, null},
+					{new Integer(59), null, null, null},
+					{new Integer(60), null, null, null},
+					{new Integer(61), null, null, null},
+					{new Integer(62), null, null, null},
+					{new Integer(63), null, null, null},
+					{new Integer(64), null, null, null},
+				},
+				new String[] {
+					"Page #", "Frame #", "Valid", "Resident"
+				}
+			) {
+				Class[] columnTypes = new Class[] {
+					Integer.class, Integer.class, Boolean.class, Boolean.class
+				};
+				public Class getColumnClass(int columnIndex) {
+					return columnTypes[columnIndex];
+				}
+			});
+		tabbedPane.addTab("P5", null, new JScrollPane(P5), null);
 		
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.NORTH);
@@ -182,7 +573,7 @@ public class GUI extends JFrame {
 		JLabel Col1Label = new JLabel("Vital Stats");
 		panel_1.add(Col1Label, BorderLayout.WEST);
 		
-		JLabel Col2 = new JLabel("ProcessPageTable");
+		JLabel Col2 = new JLabel("Process Page Tables");
 		Col2.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_1.add(Col2, BorderLayout.CENTER);
 		
@@ -233,5 +624,4 @@ public class GUI extends JFrame {
 		
 		frameTable.setValueAt("000001", 15, 1);
 	}
-
 }
