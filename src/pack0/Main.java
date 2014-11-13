@@ -96,21 +96,11 @@ public class Main extends JFrame{
 		this.gui.button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				while(remainingLines >= 1){
-					System.out.println("HERE"+remainingLines);
 					readNextLine(br);
 					remainingLines--;
 				}
 			}
 		});		
-			//while((line = br.readLine()) != null){
-				
-			//}
-			
-			//br.close();
-		
-		//System.out.println(faultCount);
-		//for(int i = 0; i < frames.length; i++)
-		//	System.out.println(frames[i]);
 	}
 	
 	public void readNextLine(BufferedReader br){
@@ -162,10 +152,12 @@ public class Main extends JFrame{
 	}
 
 	private void processReference(Reference r){
+		System.out.println("New Line");
 		isFault = false;
 		pt = new PageTableEntry();
 		System.out.println(r.toString());
-		
+		this.gui.VictimPage.setText("");
+		this.gui.VictimProcess.setText("");
 		switch(r.getPid()){
 			case "P1":
 				if(processList.contains(r.getPid())){
@@ -174,9 +166,9 @@ public class Main extends JFrame{
 					if(TableOne.containsKey(r.binToInt(r.getPageNumber()))){
 						System.out.println("Already in Mem");
 						this.gui.Empty4.setText("Already in memory");
+						TableOne.put(r.binToInt(r.getPageNumber()), pt);
 					} else
 						TableOne.put(r.binToInt(r.getPageNumber()), pt);
-						//System.out.println(P1.getPid() + "\t" +TableOne.toString());
 				} else {
 					isFault = true;
 					faultCount++;
@@ -186,12 +178,13 @@ public class Main extends JFrame{
 					P1.setPageTable(TableOne);
 					P1.setCurrRef(r);
 					TableOne.put(r.binToInt(r.getPageNumber()), processEntry(P1));
-					//System.out.println(P1.getPid() + "\t" +TableOne.toString());
 				}
+				System.out.println(P1.getPid() + "\t" +TableOne.toString());
 				if(TableOne.get(r.binToInt(r.getPageNumber())).getFrameNum() == -1)
 					this.gui.PT1.setValueAt(null, TableOne.get(r.binToInt(r.getPageNumber())).getPageNum(),  1);
-				else
+				else {
 					this.gui.PT1.setValueAt(TableOne.get(r.binToInt(r.getPageNumber())).getFrameNum(), TableOne.get(r.binToInt(r.getPageNumber())).getPageNum(),  1);
+				}
 				this.gui.PT1.setValueAt(TableOne.get(r.binToInt(r.getPageNumber())).isValid(), TableOne.get(r.binToInt(r.getPageNumber())).getPageNum(),  2);
 				this.gui.PT1.setValueAt(TableOne.get(r.binToInt(r.getPageNumber())).isResident(), TableOne.get(r.binToInt(r.getPageNumber())).getPageNum(),  3);
 				break;
@@ -202,6 +195,7 @@ public class Main extends JFrame{
 					if(TableTwo.containsKey(r.binToInt(r.getPageNumber()))) {
 						System.out.println("Already in Mem");
 						this.gui.Empty4.setText("Already in memory");
+						TableTwo.put(r.binToInt(r.getPageNumber()), pt);
 					} else
 						TableTwo.put(r.binToInt(r.getPageNumber()), pt);
 				} else {
@@ -213,11 +207,10 @@ public class Main extends JFrame{
 					P2.setPageTable(TableTwo);
 					P2.setCurrRef(r);
 					TableTwo.put(r.binToInt(r.getPageNumber()), processEntry(P2));
-					//System.out.println(P1.getPid() + "\t" +TableOne.toString());
 				}
 				if(TableTwo.get(r.binToInt(r.getPageNumber())).getFrameNum() == -1)
 					this.gui.PT2.setValueAt(null, TableTwo.get(r.binToInt(r.getPageNumber())).getPageNum(),  1);
-				else
+				else 
 					this.gui.PT2.setValueAt(TableTwo.get(r.binToInt(r.getPageNumber())).getFrameNum(), TableTwo.get(r.binToInt(r.getPageNumber())).getPageNum(),  1);
 				this.gui.PT2.setValueAt(TableTwo.get(r.binToInt(r.getPageNumber())).isValid(), TableTwo.get(r.binToInt(r.getPageNumber())).getPageNum(),  2);
 				this.gui.PT2.setValueAt(TableTwo.get(r.binToInt(r.getPageNumber())).isResident(), TableTwo.get(r.binToInt(r.getPageNumber())).getPageNum(),  3);
@@ -229,6 +222,7 @@ public class Main extends JFrame{
 					if(TableThree.containsKey(r.binToInt(r.getPageNumber()))) {
 						System.out.println("Already in Mem");
 						this.gui.Empty4.setText("Already in memory");
+						TableThree.put(r.binToInt(r.getPageNumber()), pt);
 					} else
 						TableThree.put(r.binToInt(r.getPageNumber()), pt);
 				} else {
@@ -240,7 +234,6 @@ public class Main extends JFrame{
 					P3.setPageTable(TableThree);
 					P3.setCurrRef(r);
 					TableThree.put(r.binToInt(r.getPageNumber()), processEntry(P3));
-					//System.out.println(P1.getPid() + "\t" +TableOne.toString());
 				}
 				if(TableThree.get(r.binToInt(r.getPageNumber())).getFrameNum() == -1)
 					this.gui.PT3.setValueAt(null, TableThree.get(r.binToInt(r.getPageNumber())).getPageNum(),  1);
@@ -256,6 +249,7 @@ public class Main extends JFrame{
 					if(TableFour.containsKey(r.binToInt(r.getPageNumber()))) {
 						System.out.println("Already in Mem");
 						this.gui.Empty4.setText("Already in memory");
+						TableFour.put(r.binToInt(r.getPageNumber()), pt);
 					} else
 						TableFour.put(r.binToInt(r.getPageNumber()), pt);
 				} else {
@@ -267,7 +261,6 @@ public class Main extends JFrame{
 					P4.setPageTable(TableFour);
 					P4.setCurrRef(r);
 					TableFour.put(r.binToInt(r.getPageNumber()), processEntry(P4));
-					//System.out.println(P1.getPid() + "\t" +TableOne.toString());
 				}
 				if(TableFour.get(r.binToInt(r.getPageNumber())).getFrameNum() == -1)
 					this.gui.PT4.setValueAt(null, TableFour.get(r.binToInt(r.getPageNumber())).getPageNum(),  1);
@@ -283,9 +276,9 @@ public class Main extends JFrame{
 					if(TableFive.containsKey(r.binToInt(r.getPageNumber()))) {
 						System.out.println("Already in Mem");
 						this.gui.Empty4.setText("Already in memory");
+						TableFive.put(r.binToInt(r.getPageNumber()), pt);
 					} else {
 						TableFive.put(r.binToInt(r.getPageNumber()), pt);
-						//System.out.println(P5.getPid() + "\t" +TableFive.toString());
 					}
 				} else {
 					isFault = true;
@@ -296,7 +289,6 @@ public class Main extends JFrame{
 					P5.setPageTable(TableFive);
 					P5.setCurrRef(r);
 					TableFive.put(r.binToInt(r.getPageNumber()), processEntry(P5));
-					//System.out.println(P1.getPid() + "\t" +TableOne.toString());
 				}
 				if(TableFive.get(r.binToInt(r.getPageNumber())).getFrameNum() == -1)
 					this.gui.PT5.setValueAt(null, TableFive.get(r.binToInt(r.getPageNumber())).getPageNum(),  1);
@@ -304,6 +296,7 @@ public class Main extends JFrame{
 					this.gui.PT5.setValueAt(TableFive.get(r.binToInt(r.getPageNumber())).getFrameNum(), TableFive.get(r.binToInt(r.getPageNumber())).getPageNum(),  1);
 				this.gui.PT5.setValueAt(TableFive.get(r.binToInt(r.getPageNumber())).isValid(), TableFive.get(r.binToInt(r.getPageNumber())).getPageNum(),  2);
 				this.gui.PT5.setValueAt(TableFive.get(r.binToInt(r.getPageNumber())).isResident(), TableFive.get(r.binToInt(r.getPageNumber())).getPageNum(),  3);
+				
 				break;
 			default:
 				System.out.println("Error processing reference: " +r.toString());
@@ -327,23 +320,23 @@ public class Main extends JFrame{
 			if(!freeFrames.isEmpty()){
 				//if frame available add to frame
 				f = freeFrames.get(0);
-				pte.setFrameNum(f);
 				frames[f] = p.toString();
 				freeFrames.remove(0);
 			} else {
+				//no frame available, need to replace 
 				isFault = true;
 				faultCount++;
 				System.out.println("No free frame found");
 				pageReplacement();
-				System.out.println(freeFrames);
 				f = freeFrames.get(0);
-				pte.setFrameNum(f);
 				frames[f] = p.toString();
 				freeFrames.remove(0);
 			}
 			
 			pte.setFrameNum(f);
-		}
+		} else
+			pte.setFrameNum(getTheFrame(p));
+		
 		pte.setValid(true);
 		pte.setResident(true);
 		
@@ -361,17 +354,25 @@ public class Main extends JFrame{
 		return result;
 	}
 	
+	private int getTheFrame(Process p){
+		int result=0;
+		for(int i = 0; i < frames.length; i++){
+			if(frames[i] != null && frames[i].equals(p.getCurrRef().toString())){
+				result = i;
+				break;
+			}
+		}
+		return result;
+	}
+	
 	private void pageReplacement(){
 		victim = history.get(0);
 		this.gui.VictimProcess.setText(victim.substring(0, 2));
 		this.gui.VictimPage.setText(victim.substring(3));
 		for(int i = 0; i < frames.length; i++){
-			System.out.println(frames[i]);
 			if(frames[i] != null && frames[i].equals(victim)){
-
 				frames[i] = null;
 				freeFrames.add(i);
-
 				break;
 			} 
 		}
@@ -390,26 +391,31 @@ public class Main extends JFrame{
 				TableOne.get(Integer.parseInt(pNum, 2)).setFrameNum(-1);
 				TableOne.get(Integer.parseInt(pNum, 2)).setResident(false);
 				this.gui.PT1.setValueAt(null, TableOne.get(Integer.parseInt(pNum, 2)).getPageNum(),  1);
+				this.gui.PT1.setValueAt(false, TableOne.get(Integer.parseInt(pNum, 2)).getPageNum(), 3);
 				break;
 			case "P2":
 				TableTwo.get(Integer.parseInt(pNum, 2)).setFrameNum(-1);
 				TableTwo.get(Integer.parseInt(pNum, 2)).setResident(false);
 				this.gui.PT2.setValueAt(null, TableTwo.get(Integer.parseInt(pNum, 2)).getPageNum(),  1);
+				this.gui.PT2.setValueAt(false, TableTwo.get(Integer.parseInt(pNum, 2)).getPageNum(), 3);
 				break;
 			case "P3":
 				TableThree.get(Integer.parseInt(pNum, 2)).setFrameNum(-1);
 				TableThree.get(Integer.parseInt(pNum, 2)).setResident(false);
 				this.gui.PT3.setValueAt(null, TableThree.get(Integer.parseInt(pNum, 2)).getPageNum(),  1);
+				this.gui.PT3.setValueAt(false, TableThree.get(Integer.parseInt(pNum, 2)).getPageNum(), 3);
 				break;
 			case "P4":
 				TableFour.get(Integer.parseInt(pNum, 2)).setFrameNum(-1);
 				TableFour.get(Integer.parseInt(pNum, 2)).setResident(false);
 				this.gui.PT4.setValueAt(null, TableFour.get(Integer.parseInt(pNum, 2)).getPageNum(),  1);
+				this.gui.PT4.setValueAt(false, TableFour.get(Integer.parseInt(pNum, 2)).getPageNum(), 3);
 				break;
 			case "P5":
 				TableFive.get(Integer.parseInt(pNum, 2)).setFrameNum(-1);
 				TableFive.get(Integer.parseInt(pNum, 2)).setResident(false);
 				this.gui.PT5.setValueAt(null, TableFive.get(Integer.parseInt(pNum, 2)).getPageNum(),  1);
+				this.gui.PT5.setValueAt(false, TableFive.get(Integer.parseInt(pNum, 2)).getPageNum(), 3);
 				break;
 		}
 	}
